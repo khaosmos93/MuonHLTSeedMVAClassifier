@@ -16,9 +16,8 @@ def customizerFuncForMuonHLTSeeding(
     # -- Seed MVA Classifiers
     process.hltIter2Phase2L3FromL1TkMuonPixelSeedsFiltered = cms.EDProducer("MuonHLTSeedMVAClassifier",
         src    = cms.InputTag("hltIter2Phase2L3FromL1TkMuonPixelSeeds", "", newProcessName),
-        # L1Muon = cms.InputTag("simGmtStage2Digis","",newProcessName),
-        L1TkMu = cms.InputTag("L1TkMuons", ""),
-        L2Muon = cms.InputTag("hltL2MuonCandidates", "", newProcessName),
+        L1TkMu = cms.InputTag("L1TkMuons", "", newProcessName),
+        L2Muon = cms.InputTag("hltL2MuonFromL1TkMuonCandidates", "", newProcessName),
 
         mvaFile_B_0 = cms.FileInPath("HLTrigger/MuonHLTSeedMVAClassifier/data/HLTTDR_v3_Barrel_hltIter2FromL1_0.xml"),
         mvaFile_B_1 = cms.FileInPath("HLTrigger/MuonHLTSeedMVAClassifier/data/HLTTDR_v3_Barrel_hltIter2FromL1_1.xml"),
