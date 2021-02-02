@@ -31,8 +31,8 @@ def customizerFuncForMuonHLTSeeding(
 
         mvaScaleMean_B = cms.vdouble(HLTTDR_v3_Barrel_NThltIter2FromL1_ScaleMean),
         mvaScaleStd_B  = cms.vdouble(HLTTDR_v3_Barrel_NThltIter2FromL1_ScaleStd),
-        mvaScaleMean_E = cms.vdouble(HLTTDR_v4_Endcap_NThltIter2FromL1_ScaleMean),
-        mvaScaleStd_E  = cms.vdouble(HLTTDR_v4_Endcap_NThltIter2FromL1_ScaleStd),
+        mvaScaleMean_E = cms.vdouble(HLTTDR_v3_Endcap_NThltIter2FromL1_ScaleMean),
+        mvaScaleStd_E  = cms.vdouble(HLTTDR_v3_Endcap_NThltIter2FromL1_ScaleStd),
 
         doSort = cms.bool(doSort),
         nSeedsMax_B = cms.int32(nSeedsMax_B[0]),

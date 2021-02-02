@@ -203,7 +203,7 @@ float SeedMvaEstimator::computeMva( const TrajectorySeed& seed,
   // var[kDPhidPhiL2SeedX] = dPhidPhiL2SeedX;
   var[kDRL1TkMu]        = DRL1TkMu;
   var[kDPhiL1TkMu]      = DPhiL1TkMu;
-  var[hasL2]            = hasL2;
+  var[kHasL2]           = hasL2;
 
   for(int iv=0; iv<kLast; ++iv) {
     var[iv] = (var[iv] - scale_mean_.at(iv)) / scale_std_.at(iv);

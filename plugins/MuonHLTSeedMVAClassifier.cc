@@ -195,7 +195,8 @@ void MuonHLTSeedMVAClassifier::produce(edm::Event& iEvent, const edm::EventSetup
 	edm::Handle< TrajectorySeedCollection > h_Seed;
 	bool hasSeed = iEvent.getByToken( t_Seed_, h_Seed );
 
-	if( !( hasL1 && hasL1TkMu && hasL2 && hasSeed ) ) {
+	// if( !( hasL1 && hasL1TkMu && hasL2 && hasSeed ) ) {
+	if( !( hasL1TkMu && hasL2 && hasSeed ) ) {
 		std::cout << "MuonHLTSeedMVAClassifier::produce: !( hasL1 && hasL1TkMu && hasL2 && hasSeed )" << std::endl;
 		return;
 	}
