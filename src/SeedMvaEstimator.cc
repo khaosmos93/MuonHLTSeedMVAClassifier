@@ -19,38 +19,40 @@ SeedMvaEstimator::~SeedMvaEstimator() {}
 namespace {
   enum inputIndexes {
     kTsosErr0,         // 0
-    kTsosErr1,         // 1
-    kTsosErr2,         // 2
-    kTsosErr3,         // 3
-    kTsosErr4,         // 4
-    kTsosErr5,         // 5
-    kTsosErr6,         // 6
-    kTsosErr7,         // 7
-    kTsosErr8,         // 8
-    kTsosErr9,         // 9
-    kTsosErr10,        // 10
-    kTsosErr11,        // 11
-    kTsosErr12,        // 12
-    kTsosErr13,        // 13
-    kTsosErr14,        // 14
-    kTsosDxdz,         // 15
-    kTsosDydz,         // 16
-    kTsosQbp,          // 17
-    kTsosCharge,       // 18
-    kDRdRL1SeedP,      // 19
-    kDPhidRL1SeedP,    // 20
-    kDRdPhiL1SeedX,    // 21
-    kDPhidPhiL1SeedX,  // 22
-    kDRdRL2SeedP,      // 23
-    kDPhidRL2SeedP,    // 24
-    kDRdPhiL2SeedX,    // 25
-    kDPhidPhiL2SeedX,  // 26
-    kDRL1TkMu,         // 27
-    kDPhiL1TkMu,       // 28
-    kLast              // 29
+    // kTsosErr1,         // 1
+    kTsosErr2,         // 1  2
+    // kTsosErr3,         // 3
+    // kTsosErr4,         // 4
+    kTsosErr5,         // 2  5
+    // kTsosErr6,         // 6
+    // kTsosErr7,         // 7
+    // kTsosErr8,         // 8
+    kTsosErr9,         // 3  9
+    // kTsosErr10,        // 10
+    // kTsosErr11,        // 11
+    // kTsosErr12,        // 12
+    // kTsosErr13,        // 13
+    kTsosErr14,        // 4  14
+    kTsosDxdz,         // 5  15
+    kTsosDydz,         // 6  16
+    kTsosQbp,          // 7  17
+    kTsosCharge,       // 8  18
+    // kDRdRL1SeedP,      // 19
+    // kDPhidRL1SeedP,    // 20
+    // kDRdPhiL1SeedX,    // 21
+    // kDPhidPhiL1SeedX,  // 22
+    kDRdRL2SeedP,      // 9  23
+    kDPhidRL2SeedP,    // 10  24
+    // kDRdPhiL2SeedX,    // 25
+    // kDPhidPhiL2SeedX,  // 26
+    kDRL1TkMu,         // 11  27
+    kDPhiL1TkMu,       // 12  28
+    kHasL2,            // 13
+    kLast              // 14  29
   };
 }  // namespace
 
+/*
 void SeedMvaEstimator::getL1MuonVariables(
   const TrajectorySeed& seed,
   GlobalVector global_p,
@@ -88,6 +90,7 @@ void SeedMvaEstimator::getL1MuonVariables(
     }
   }
 }
+*/
 
 void SeedMvaEstimator::getL2MuonVariables(
   const TrajectorySeed& seed,
@@ -142,7 +145,7 @@ void SeedMvaEstimator::getL1TTVariables(
 float SeedMvaEstimator::computeMva( const TrajectorySeed& seed,
   GlobalVector global_p,
   GlobalPoint  global_x,
-  edm::Handle<l1t::MuonBxCollection> h_L1Muon,
+  // edm::Handle<l1t::MuonBxCollection> h_L1Muon,
   edm::Handle<reco::RecoChargedCandidateCollection> h_L2Muon,
   edm::Handle<l1t::TkMuonCollection> h_L1TkMu
 ) const {
@@ -150,19 +153,19 @@ float SeedMvaEstimator::computeMva( const TrajectorySeed& seed,
   float var[kLast]{};
 
   var[kTsosErr0]   = seed.startingState().error(0);
-  var[kTsosErr1]   = seed.startingState().error(1);
+  // var[kTsosErr1]   = seed.startingState().error(1);
   var[kTsosErr2]   = seed.startingState().error(2);
-  var[kTsosErr3]   = seed.startingState().error(3);
-  var[kTsosErr4]   = seed.startingState().error(4);
+  // var[kTsosErr3]   = seed.startingState().error(3);
+  // var[kTsosErr4]   = seed.startingState().error(4);
   var[kTsosErr5]   = seed.startingState().error(5);
-  var[kTsosErr6]   = seed.startingState().error(6);
-  var[kTsosErr7]   = seed.startingState().error(7);
-  var[kTsosErr8]   = seed.startingState().error(8);
+  // var[kTsosErr6]   = seed.startingState().error(6);
+  // var[kTsosErr7]   = seed.startingState().error(7);
+  // var[kTsosErr8]   = seed.startingState().error(8);
   var[kTsosErr9]   = seed.startingState().error(9);
-  var[kTsosErr10]  = seed.startingState().error(10);
-  var[kTsosErr11]  = seed.startingState().error(11);
-  var[kTsosErr12]  = seed.startingState().error(12);
-  var[kTsosErr13]  = seed.startingState().error(13);
+  // var[kTsosErr10]  = seed.startingState().error(10);
+  // var[kTsosErr11]  = seed.startingState().error(11);
+  // var[kTsosErr12]  = seed.startingState().error(12);
+  // var[kTsosErr13]  = seed.startingState().error(13);
   var[kTsosErr14]  = seed.startingState().error(14);
   var[kTsosDxdz]   = seed.startingState().parameters().dxdz();
   var[kTsosDydz]   = seed.startingState().parameters().dydz();
@@ -172,11 +175,11 @@ float SeedMvaEstimator::computeMva( const TrajectorySeed& seed,
   // FIXME: should be configurable
   float initDRdPhi = 99999.;
 
-  float dRdRL1SeedP = initDRdPhi;
-  float dPhidRL1SeedP = initDRdPhi;
-  float dRdPhiL1SeedX = initDRdPhi;
-  float dPhidPhiL1SeedX = initDRdPhi;
-  getL1MuonVariables( seed, global_p, global_x, h_L1Muon, dRdRL1SeedP, dPhidRL1SeedP, dRdPhiL1SeedX, dPhidPhiL1SeedX );
+  // float dRdRL1SeedP = initDRdPhi;
+  // float dPhidRL1SeedP = initDRdPhi;
+  // float dRdPhiL1SeedX = initDRdPhi;
+  // float dPhidPhiL1SeedX = initDRdPhi;
+  // getL1MuonVariables( seed, global_p, global_x, h_L1Muon, dRdRL1SeedP, dPhidRL1SeedP, dRdPhiL1SeedX, dPhidPhiL1SeedX );
 
   float dRdRL2SeedP = initDRdPhi;
   float dPhidRL2SeedP = initDRdPhi;
@@ -184,20 +187,23 @@ float SeedMvaEstimator::computeMva( const TrajectorySeed& seed,
   float dPhidPhiL2SeedX = initDRdPhi;
   getL2MuonVariables( seed, global_p, global_x, h_L2Muon, dRdRL2SeedP, dPhidRL2SeedP, dRdPhiL2SeedX, dPhidPhiL2SeedX );
 
+  float hasL2 = float(dRdRL2SeedP < initDRdPhi);
+
   float DRL1TkMu = initDRdPhi;
   float DPhiL1TkMu = initDRdPhi;
   getL1TTVariables( seed, global_p, global_x, h_L1TkMu, DRL1TkMu, DPhiL1TkMu );
 
-  var[kDRdRL1SeedP]     = dRdRL1SeedP;
-  var[kDPhidRL1SeedP]   = dPhidRL1SeedP;
-  var[kDRdPhiL1SeedX]   = dRdPhiL1SeedX;
-  var[kDPhidPhiL1SeedX] = dPhidPhiL1SeedX;
+  // var[kDRdRL1SeedP]     = dRdRL1SeedP;
+  // var[kDPhidRL1SeedP]   = dPhidRL1SeedP;
+  // var[kDRdPhiL1SeedX]   = dRdPhiL1SeedX;
+  // var[kDPhidPhiL1SeedX] = dPhidPhiL1SeedX;
   var[kDRdRL2SeedP]     = dRdRL2SeedP;
   var[kDPhidRL2SeedP]   = dPhidRL2SeedP;
-  var[kDRdPhiL2SeedX]   = dRdPhiL2SeedX;
-  var[kDPhidPhiL2SeedX] = dPhidPhiL2SeedX;
+  // var[kDRdPhiL2SeedX]   = dRdPhiL2SeedX;
+  // var[kDPhidPhiL2SeedX] = dPhidPhiL2SeedX;
   var[kDRL1TkMu]        = DRL1TkMu;
   var[kDPhiL1TkMu]      = DPhiL1TkMu;
+  var[hasL2]            = hasL2;
 
   for(int iv=0; iv<kLast; ++iv) {
     var[iv] = (var[iv] - scale_mean_.at(iv)) / scale_std_.at(iv);

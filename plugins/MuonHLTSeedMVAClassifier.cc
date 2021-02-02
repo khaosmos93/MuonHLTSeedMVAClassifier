@@ -71,7 +71,7 @@ class MuonHLTSeedMVAClassifier : public edm::stream::EDProducer<> {
 
 		// ----------member data ---------------------------
 		edm::EDGetTokenT<TrajectorySeedCollection>             t_Seed_;
-		edm::EDGetTokenT<l1t::MuonBxCollection>                t_L1Muon_;
+		// edm::EDGetTokenT<l1t::MuonBxCollection>                t_L1Muon_;
 		edm::EDGetTokenT<l1t::TkMuonCollection>                t_L1TkMu_;
 		edm::EDGetTokenT<reco::RecoChargedCandidateCollection> t_L2Muon_;
 
@@ -104,7 +104,7 @@ class MuonHLTSeedMVAClassifier : public edm::stream::EDProducer<> {
 			const TrajectorySeed& seed,
 			GlobalVector global_p,
 			GlobalPoint  global_x,
-			edm::Handle<l1t::MuonBxCollection>& h_L1Muon,
+			// edm::Handle<l1t::MuonBxCollection>& h_L1Muon,
 			edm::Handle<l1t::TkMuonCollection>& h_L1TkMu,
 			edm::Handle<reco::RecoChargedCandidateCollection>& h_L2Muon,
 			float offset
@@ -124,7 +124,7 @@ class MuonHLTSeedMVAClassifier : public edm::stream::EDProducer<> {
 //
 MuonHLTSeedMVAClassifier::MuonHLTSeedMVAClassifier(const edm::ParameterSet& iConfig):
 	t_Seed_(  consumes<TrajectorySeedCollection>            (iConfig.getParameter<edm::InputTag>("src"))),
-	t_L1Muon_(consumes<l1t::MuonBxCollection>               (iConfig.getParameter<edm::InputTag>("L1Muon"))),
+	// t_L1Muon_(consumes<l1t::MuonBxCollection>               (iConfig.getParameter<edm::InputTag>("L1Muon"))),
 	t_L1TkMu_(consumes<l1t::TkMuonCollection>               (iConfig.getParameter<edm::InputTag>("L1TkMu"))),
 	t_L2Muon_(consumes<reco::RecoChargedCandidateCollection>(iConfig.getParameter<edm::InputTag>("L2Muon"))),
 
@@ -183,8 +183,8 @@ void MuonHLTSeedMVAClassifier::produce(edm::Event& iEvent, const edm::EventSetup
 	edm::ESHandle<TrackerGeometry> trkGeom;
 	iSetup.get<TrackerDigiGeometryRecord>().get(trkGeom);
 
-	edm::Handle<l1t::MuonBxCollection> h_L1Muon;
-	bool hasL1 = iEvent.getByToken( t_L1Muon_, h_L1Muon);
+	// edm::Handle<l1t::MuonBxCollection> h_L1Muon;
+	// bool hasL1 = iEvent.getByToken( t_L1Muon_, h_L1Muon);
 
 	edm::Handle<l1t::TkMuonCollection> h_L1TkMu;
 	bool hasL1TkMu = iEvent.getByToken( t_L1TkMu_, h_L1TkMu);
@@ -229,7 +229,7 @@ void MuonHLTSeedMVAClassifier::produce(edm::Event& iEvent, const edm::EventSetup
 				seed,
 				global_p,
 				global_x,
-				h_L1Muon,
+				// h_L1Muon,
 				h_L1TkMu,
 				h_L2Muon,
 				0.5
@@ -285,7 +285,7 @@ void MuonHLTSeedMVAClassifier::produce(edm::Event& iEvent, const edm::EventSetup
 				seed,
 				global_p,
 				global_x,
-				h_L1Muon,
+				// h_L1Muon,
 				h_L1TkMu,
 				h_L2Muon,
 				0.5
@@ -310,7 +310,7 @@ std::vector<float> MuonHLTSeedMVAClassifier::getSeedMva(
 	const TrajectorySeed& seed,
 	GlobalVector global_p,
 	GlobalPoint  global_x,
-	edm::Handle<l1t::MuonBxCollection>& h_L1Muon,
+	// edm::Handle<l1t::MuonBxCollection>& h_L1Muon,
 	edm::Handle<l1t::TkMuonCollection>& h_L1TkMu,
 	edm::Handle<reco::RecoChargedCandidateCollection>& h_L2Muon,
 	float offset = 0.5
@@ -324,7 +324,7 @@ std::vector<float> MuonHLTSeedMVAClassifier::getSeedMva(
 				seed,
 				global_p,
 				global_x,
-				h_L1Muon,
+				// h_L1Muon,
 				h_L2Muon,
 				h_L1TkMu
 			);
@@ -335,7 +335,7 @@ std::vector<float> MuonHLTSeedMVAClassifier::getSeedMva(
 				seed,
 				global_p,
 				global_x,
-				h_L1Muon,
+				// h_L1Muon,
 				h_L2Muon,
 				h_L1TkMu
 			);

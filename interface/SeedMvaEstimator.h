@@ -9,7 +9,7 @@
 #include "DataFormats/TrajectoryState/interface/PTrajectoryStateOnDet.h"
 #include "DataFormats/TrajectoryState/interface/LocalTrajectoryParameters.h"
 
-#include "DataFormats/L1Trigger/interface/Muon.h"
+// #include "DataFormats/L1Trigger/interface/Muon.h"
 
 #include "DataFormats/RecoCandidate/interface/RecoChargedCandidate.h"
 #include "DataFormats/RecoCandidate/interface/RecoChargedCandidateFwd.h"
@@ -34,7 +34,7 @@ public:
   float computeMva( const TrajectorySeed&,
     GlobalVector,
     GlobalPoint,
-    edm::Handle<l1t::MuonBxCollection>,
+    // edm::Handle<l1t::MuonBxCollection>,
     edm::Handle<reco::RecoChargedCandidateCollection>,
     edm::Handle<l1t::TkMuonCollection>
   ) const;
@@ -45,7 +45,7 @@ private:
   std::vector<double> scale_mean_;
   std::vector<double> scale_std_;
 
-  void getL1MuonVariables( const TrajectorySeed&, GlobalVector, GlobalPoint, edm::Handle<l1t::MuonBxCollection>, float&, float&, float&, float& ) const;
+  // void getL1MuonVariables( const TrajectorySeed&, GlobalVector, GlobalPoint, edm::Handle<l1t::MuonBxCollection>, float&, float&, float&, float& ) const;
   void getL2MuonVariables( const TrajectorySeed&, GlobalVector, GlobalPoint, edm::Handle<reco::RecoChargedCandidateCollection>, float&, float&, float&, float& ) const;
   void getL1TTVariables(   const TrajectorySeed&, GlobalVector, GlobalPoint, edm::Handle<l1t::TkMuonCollection>, float&, float& ) const;
 };
