@@ -14,7 +14,7 @@ def customizerFuncForMuonHLTSeeding(
     # print "mvaCuts_E: ", mvaCuts_E
 
     # -- Seed MVA Classifiers
-    process.hltIter2Phase2L3FromL1TkMuonPixelSeedsFiltered = cms.EDProducer("MuonHLTSeedMVAClassifier",
+    process.hltIter2Phase2L3FromL1TkMuonPixelSeedsFiltered = cms.EDProducer("MuonHLTSeedMVAClassifierPhase2",
         src    = cms.InputTag("hltIter2Phase2L3FromL1TkMuonPixelSeeds", "", newProcessName),
         L1TkMu = cms.InputTag("L1TkMuons", "", newProcessName),
         L2Muon = cms.InputTag("hltL2MuonFromL1TkMuonCandidates", "", newProcessName),

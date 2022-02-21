@@ -1,9 +1,9 @@
 // -*- C++ -*-
 //
-// Package:    HLTrigger/MuonHLTSeedMVAClassifier
-// Class:      MuonHLTSeedMVAClassifier
+// Package:    HLTrigger/MuonHLTSeedMVAClassifierPhase2
+// Class:      MuonHLTSeedMVAClassifierPhase2
 // 
-/**\class MuonHLTSeedMVAClassifier MuonHLTSeedMVAClassifier.cc HLTrigger/MuonHLTSeedMVAClassifier/plugins/MuonHLTSeedMVAClassifier.cc
+/**\class MuonHLTSeedMVAClassifierPhase2 MuonHLTSeedMVAClassifierPhase2.cc HLTrigger/MuonHLTSeedMVAClassifierPhase2/plugins/MuonHLTSeedMVAClassifierPhase2.cc
 
  Description: [one line class summary]
 */
@@ -50,10 +50,10 @@ bool sortByMvaScore(const std::pair<unsigned, float> &A, const std::pair<unsigne
 	return (A.second > B.second);
 };
 
-class MuonHLTSeedMVAClassifier : public edm::stream::EDProducer<> {
+class MuonHLTSeedMVAClassifierPhase2 : public edm::stream::EDProducer<> {
 	public:
-		explicit MuonHLTSeedMVAClassifier(const edm::ParameterSet&);
-		~MuonHLTSeedMVAClassifier();
+		explicit MuonHLTSeedMVAClassifierPhase2(const edm::ParameterSet&);
+		~MuonHLTSeedMVAClassifierPhase2();
 
 		static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
@@ -122,7 +122,7 @@ class MuonHLTSeedMVAClassifier : public edm::stream::EDProducer<> {
 //
 // constructors and destructor
 //
-MuonHLTSeedMVAClassifier::MuonHLTSeedMVAClassifier(const edm::ParameterSet& iConfig):
+MuonHLTSeedMVAClassifierPhase2::MuonHLTSeedMVAClassifierPhase2(const edm::ParameterSet& iConfig):
 	t_Seed_(  consumes<TrajectorySeedCollection>            (iConfig.getParameter<edm::InputTag>("src"))),
 	// t_L1Muon_(consumes<l1t::MuonBxCollection>               (iConfig.getParameter<edm::InputTag>("L1Muon"))),
 	t_L1TkMu_(consumes<l1t::TkMuonCollection>               (iConfig.getParameter<edm::InputTag>("L1TkMu"))),
@@ -164,7 +164,7 @@ MuonHLTSeedMVAClassifier::MuonHLTSeedMVAClassifier(const edm::ParameterSet& iCon
 }
 
 
-MuonHLTSeedMVAClassifier::~MuonHLTSeedMVAClassifier()
+MuonHLTSeedMVAClassifierPhase2::~MuonHLTSeedMVAClassifierPhase2()
 {
    // do anything here that needs to be done at destruction time
    // (e.g. close files, deallocate resources etc.)
@@ -176,7 +176,7 @@ MuonHLTSeedMVAClassifier::~MuonHLTSeedMVAClassifier()
 //
 
 // ------------ method called on each new Event  ------------
-void MuonHLTSeedMVAClassifier::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
+void MuonHLTSeedMVAClassifierPhase2::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 	auto result = std::make_unique<TrajectorySeedCollection>();
 
@@ -197,7 +197,7 @@ void MuonHLTSeedMVAClassifier::produce(edm::Event& iEvent, const edm::EventSetup
 
 	// if( !( hasL1 && hasL1TkMu && hasL2 && hasSeed ) ) {
 	if( !( hasL1TkMu && hasL2 && hasSeed ) ) {
-		std::cout << "MuonHLTSeedMVAClassifier::produce: !( hasL1 && hasL1TkMu && hasL2 && hasSeed )" << std::endl;
+		std::cout << "MuonHLTSeedMVAClassifierPhase2::produce: !( hasL1 && hasL1TkMu && hasL2 && hasSeed )" << std::endl;
 		return;
 	}
 
@@ -306,7 +306,7 @@ void MuonHLTSeedMVAClassifier::produce(edm::Event& iEvent, const edm::EventSetup
 	iEvent.put(std::move(result));
 }
 
-std::vector<float> MuonHLTSeedMVAClassifier::getSeedMva(
+std::vector<float> MuonHLTSeedMVAClassifierPhase2::getSeedMva(
 	pairSeedMvaEstimator pairMvaEstimator,
 	const TrajectorySeed& seed,
 	GlobalVector global_p,
@@ -344,16 +344,16 @@ std::vector<float> MuonHLTSeedMVAClassifier::getSeedMva(
 		}
 	}
 	if( v_mva.size() != 4 ) {  // this should never happen
-		std::cout << "MuonHLTSeedMVAClassifier::getSeedMva: v_mva.size() != 4" << std::endl;
+		std::cout << "MuonHLTSeedMVAClassifierPhase2::getSeedMva: v_mva.size() != 4" << std::endl;
 		return { -99999., -99999., -99999., -99999. };
 	}
 
 	return v_mva;
 }
 
-void MuonHLTSeedMVAClassifier::beginJob(){}
+void MuonHLTSeedMVAClassifierPhase2::beginJob(){}
 
-void MuonHLTSeedMVAClassifier::endJob(){
+void MuonHLTSeedMVAClassifierPhase2::endJob(){
 	for( int i=0; i<4; ++i ) {
 		delete mvaEstimator.at(i).first;
 		delete mvaEstimator.at(i).second;
@@ -363,38 +363,38 @@ void MuonHLTSeedMVAClassifier::endJob(){
 
 // ------------ method called once each stream before processing any runs, lumis or events  ------------
 /*
-void MuonHLTSeedMVAClassifier::beginStream(edm::StreamID){}
+void MuonHLTSeedMVAClassifierPhase2::beginStream(edm::StreamID){}
 */
 
 // ------------ method called once each stream after processing all runs, lumis and events  ------------
 /*
-void MuonHLTSeedMVAClassifier::endStream(){}
+void MuonHLTSeedMVAClassifierPhase2::endStream(){}
 */
 
 // ------------ method called when starting to processes a run  ------------
 /*
-void MuonHLTSeedMVAClassifier::beginRun(edm::Run const&, edm::EventSetup const&){}
+void MuonHLTSeedMVAClassifierPhase2::beginRun(edm::Run const&, edm::EventSetup const&){}
 */
 
 // ------------ method called when ending the processing of a run  ------------
 /*
-void MuonHLTSeedMVAClassifier::endRun(edm::Run const&, edm::EventSetup const&){}
+void MuonHLTSeedMVAClassifierPhase2::endRun(edm::Run const&, edm::EventSetup const&){}
 */
 
 // ------------ method called when starting to processes a luminosity block  ------------
 /*
 void
-MuonHLTSeedMVAClassifier::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&){}
+MuonHLTSeedMVAClassifierPhase2::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&){}
 */
 
 // ------------ method called when ending the processing of a luminosity block  ------------
 /*
 void
-MuonHLTSeedMVAClassifier::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&){}
+MuonHLTSeedMVAClassifierPhase2::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&){}
 */
 
 // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
-void MuonHLTSeedMVAClassifier::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+void MuonHLTSeedMVAClassifierPhase2::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
   //The following says we do not know what parameters are allowed so do no validation
   // Please change this to state exactly what you do use, even if it is no parameters
   edm::ParameterSetDescription desc;
@@ -402,4 +402,4 @@ void MuonHLTSeedMVAClassifier::fillDescriptions(edm::ConfigurationDescriptions& 
   descriptions.addDefault(desc);
 }
 //define this as a plug-in
-DEFINE_FWK_MODULE(MuonHLTSeedMVAClassifier);
+DEFINE_FWK_MODULE(MuonHLTSeedMVAClassifierPhase2);
